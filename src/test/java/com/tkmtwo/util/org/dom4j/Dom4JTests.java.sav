@@ -1,0 +1,16 @@
+package com.tkmtwo.util.org.dom4j;
+
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+
+@RunWith(Suite.class)
+@SuiteClasses(
+{
+  Dom4JUtilTest.class
+    }
+)
+public class Dom4JTests {
+  
+}
