@@ -1,7 +1,7 @@
 package com.tkmtwo.util.org.joda.time;
 
 
-import org.apache.commons.lang.StringUtils;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +12,7 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 import org.joda.time.Duration;
 
+import com.tkmtwo.util.java.lang.Strings;
 
 
 public final class DurationConverter
@@ -23,7 +24,7 @@ public final class DurationConverter
   
   public Duration convert(String s)
   {
-    if (StringUtils.isBlank(s)) {
+    if (Strings.isBlank(s)) {
       throw new IllegalArgumentException("String is blank.");
     }
 

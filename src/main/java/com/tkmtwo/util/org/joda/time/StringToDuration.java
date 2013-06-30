@@ -1,7 +1,7 @@
 package com.tkmtwo.util.org.joda.time;
 
 
-import org.apache.commons.lang.StringUtils;
+
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.expression.ExpressionParser;
@@ -9,13 +9,15 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 import org.joda.time.Duration;
 
+import com.tkmtwo.util.java.lang.Strings;
+
 public final class StringToDuration implements Converter<String, Duration> {
 
   private static final ExpressionParser parser = new SpelExpressionParser();
 
 
   public Duration convert(String s) {
-    if (StringUtils.isBlank(s)) { return new Duration(0L); }
+    if (Strings.isBlank(s)) { return new Duration(0L); }
     
     Duration d = null;
     Long l = convertFromLong(s);

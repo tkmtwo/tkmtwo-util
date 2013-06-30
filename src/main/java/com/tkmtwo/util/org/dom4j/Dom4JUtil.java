@@ -5,12 +5,14 @@ import java.io.StringWriter;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 
 import java.math.BigDecimal;
-
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 
@@ -24,7 +26,7 @@ import javax.xml.transform.TransformerException;
 import org.xml.sax.InputSource;
 
 import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
+//import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.xml.resolver.tools.ResolvingXMLReader;
@@ -46,7 +48,7 @@ import org.dom4j.io.XMLWriter;
 
 //import sarapi.arsys.core.ArsSchemaHelper;
 //import sarapi.arsys.core.EnumPair;
-
+import com.tkmtwo.util.java.lang.Strings;
 
 public class Dom4JUtil
 {
@@ -82,11 +84,30 @@ public class Dom4JUtil
 
 
 
+  public static Document getDocument(String s)
+    throws DocumentException, FileNotFoundException, URISyntaxException
+  {
+    return getDocument(new File(new URI(s)));
+  }
+    
+  public static Document getDocument(File f)
+    throws DocumentException, FileNotFoundException
+  {
+    return getDocument(new FileInputStream(f));
+  }
   public static Document getDocument(InputStream is)
     throws DocumentException
   {
     return getSAXReader(false).read(is);
   }
+  public static Document getDocument(String docRepresentation, String encoding)
+    throws DocumentException, UnsupportedEncodingException
+  {
+    //byte[] bs = docRepresentation.getBytes(encoding);
+    ByteArrayInputStream bais = new ByteArrayInputStream(docRepresentation.getBytes(encoding));
+    return getDocument(bais);
+  }
+
 
   public static String childTextTrim(Node n, String s)
   {
@@ -95,7 +116,7 @@ public class Dom4JUtil
       return null;
     }
     String childTextTrim = e.getTextTrim();
-    if (StringUtils.isBlank(childTextTrim)) {
+    if (Strings.isBlank(childTextTrim)) {
       return null;
     }
     return childTextTrim;
@@ -109,19 +130,12 @@ public class Dom4JUtil
     }
     
     String childText = e.getText();
-    if (StringUtils.isBlank(childText)) {
+    if (Strings.isBlank(childText)) {
       return null;
     }
     return childText;
   }
 
-  public static Document getDocument(String docRepresentation, String encoding)
-    throws DocumentException, UnsupportedEncodingException
-  {
-    //byte[] bs = docRepresentation.getBytes(encoding);
-    ByteArrayInputStream bais = new ByteArrayInputStream(docRepresentation.getBytes(encoding));
-    return getDocument(bais);
-  }
 
 
   public static boolean toBoolean(Node n, String s)
@@ -161,7 +175,7 @@ public class Dom4JUtil
   
   public static void addIfNotBlank(Element parent, String childName, String childText)
   {
-    if (StringUtils.isNotBlank(childText)) {
+    if (Strings.isNotBlank(childText)) {
       parent
         .addElement(childName)
         .addText(childText);

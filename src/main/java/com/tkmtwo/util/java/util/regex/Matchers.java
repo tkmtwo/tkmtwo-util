@@ -78,7 +78,19 @@ public class Matchers {
     return sb.toString();
   }
 
-    
+
+
+  public static List<String> findAllMatches(String s, Pattern p)
+  {
+    List<String> matches = new ArrayList<String>();
+    Matcher m = p.matcher(s);
+    while(m.find()) {
+      matches.add(m.group());
+    }
+    return matches;
+  }
+
+
   
 }
 

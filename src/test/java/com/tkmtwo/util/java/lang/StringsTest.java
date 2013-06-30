@@ -15,21 +15,34 @@ public class StringsTest {
 		
 	}
 	*/
-	
-	
-	
-	@Test
-	public void testIts()
-	{
-		assertEquals("'tkmtwo'", Strings.sqit("tkmtwo"));
-		assertEquals("\"tkmtwo\"", Strings.dqit("tkmtwo"));
-		assertEquals("`tkmtwo'", Strings.tickit("tkmtwo"));
-		
-		assertEquals("{tkmtwo}", Strings.curlit("tkmtwo"));
-		assertEquals("(tkmtwo)", Strings.parit("tkmtwo"));
-		assertEquals("[tkmtwo]", Strings.squareit("tkmtwo"));
-		
-	}
-	
+  
+  
+  
+  @Test
+  public void testIts()
+  {
+    assertEquals("'tkmtwo'", Strings.sqit("tkmtwo"));
+    assertEquals("\"tkmtwo\"", Strings.dqit("tkmtwo"));
+    assertEquals("`tkmtwo'", Strings.tickit("tkmtwo"));
+    
+    assertEquals("{tkmtwo}", Strings.curlit("tkmtwo"));
+    assertEquals("(tkmtwo)", Strings.parit("tkmtwo"));
+    assertEquals("[tkmtwo]", Strings.squareit("tkmtwo"));
+    
+  }
+  
 
+  @Test
+  public void testReplaceAll()
+  {
+	assertEquals("bar$bar", Strings.replaceAll("foo[]bar", "foo[]", "bar$"));
+  }
+  
+  @Test
+  public void testReplaceAllInsensitive()
+  {
+    assertEquals("bar$bar", Strings.replaceAllInsensitive("FOO[]bar", "foo[]", "bar$"));
+  }
+  
 }
+

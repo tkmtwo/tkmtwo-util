@@ -1,15 +1,16 @@
 package com.tkmtwo.util.interpolate;
 
 
-
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-
+import com.google.common.collect.Lists;
 
 public class InterpolatorTest
 {
@@ -112,6 +113,25 @@ public class InterpolatorTest
     assertEquals(spOut,
                  Interpolator.interpolate(spIn));
   }
+  
+  
+  @Test
+  public void testCollection()
+  {
+    MappingInterpolatorCallback mic = new MappingInterpolatorCallback();
+    mic.put("name", "tom");
+
+    List<String> srcList = Lists.newArrayList("My name is ${name}.",
+                                              "${name} is my dad's name.",
+                                              "I had a dog named ${name} as a kid.");
+    List<String> dstList = Lists.newArrayList();
+    Interpolator.interpolate(srcList, dstList, mic);
+    assertTrue(dstList.contains("My name is tom."));
+    assertTrue(dstList.contains("tom is my dad's name."));
+    assertTrue(dstList.contains("I had a dog named tom as a kid."));
+  }
+               
+    
   
   
 }

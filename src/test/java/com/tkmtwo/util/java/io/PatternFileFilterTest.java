@@ -19,7 +19,7 @@ public class PatternFileFilterTest
   public void testJodaBasicDateTimeNoMillisFileName()
   {
     PatternFileFilter pff = new PatternFileFilter(MatchMethod.FIND,
-                                                  JodaTime.PATTERN_BASIC_DATETIME_NOMILLIS);
+                                                  JodaTime.BASIC_DATETIME_NOMILLIS_SPEC);
     String[] ssPass = new String[] {
       "20120101T000000Z",
       "prefix-20120101T000000Z",
@@ -53,7 +53,7 @@ public class PatternFileFilterTest
   public void testJodaBasicDateTimeNoMillisFileNamePartial()
   {
     PatternFileFilter pff = new PatternFileFilter(MatchMethod.FIND,
-                                                  "prefix-" + JodaTime.PATTERN_BASIC_DATETIME_NOMILLIS + "-suffix");
+                                                  "prefix-" + JodaTime.BASIC_DATETIME_NOMILLIS_SPEC + "-suffix");
     String[] ssPass = new String[] {
       "prefix-20120101T000000Z-suffix",
       "xyzprefix-20120101T000000Z-suffix",

@@ -1,6 +1,6 @@
 package com.tkmtwo.util.interpolate;
 
-
+import java.util.Collection;
 import java.util.Map;
 
 
@@ -31,6 +31,22 @@ public final class Interpolator {
    */
   public static String interpolate(final String s, final InterpolatorCallback ic) {
     return interpolate(s, ic, INTERP_START, INTERP_STOP);
+  }
+  
+  public static void interpolate(final Collection<String> srcCollection,
+                                 Collection<String> dstCollection,
+                                 final InterpolatorCallback ic) {
+    interpolate(srcCollection, dstCollection, ic, INTERP_START, INTERP_STOP);
+  }
+
+  public static void interpolate(final Collection<String> srcCollection,
+                                 Collection<String> dstCollection,
+                                 final InterpolatorCallback ic,
+                                 final String intStart,
+                                 final String intStop) {
+    for (String s : srcCollection) {
+      dstCollection.add(interpolate(s, ic, intStart, intStop));
+    }
   }
   
   
@@ -79,6 +95,17 @@ public final class Interpolator {
     ic.reset();
     return result;
   }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

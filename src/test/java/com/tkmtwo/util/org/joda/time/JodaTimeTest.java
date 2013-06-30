@@ -135,7 +135,30 @@ public class JodaTimeTest
                  JodaTime.dateTimeFromMillis(86400000L));
     assertNull(JodaTime.dateTimeFromMillis(null));
   }
+  
+  
+  
+  
+  @Test
+  public void testTemp()
+  {
+    String s = "My dob is 19691102T033333Z and today is 20130427T000345Z which makes me over 40!";
 
+    List<DateTime> dts = JodaTime.getDateTimes(s);
+    assertEquals(2, dts.size());
+    assertEquals(dtf.parseDateTime("1969-11-02T03:33:33Z"),
+                 dts.get(0));
+    assertEquals(dtf.parseDateTime("2013-04-27T00:03:45Z"),
+                 dts.get(1));
+    
+    
+    assertEquals(dtf.parseDateTime("2013-04-27T00:03:45Z"),
+                 JodaTime.getDateTime(s));
+    
+    
+    
+  }
+  
   
 }
 

@@ -1,7 +1,9 @@
 package com.tkmtwo.util.java.lang;
 
 import java.util.EnumSet;
-import org.apache.commons.lang.StringUtils;
+import com.google.common.base.Objects;
+
+
 
 public class Enums
 {
@@ -10,7 +12,7 @@ public class Enums
   {
 
     for (T t : EnumSet.allOf(c)) {
-      if (StringUtils.equals(t.toString(), s)) {
+      if (Objects.equal(t.toString(), s)) {
         return t;
       }
     }

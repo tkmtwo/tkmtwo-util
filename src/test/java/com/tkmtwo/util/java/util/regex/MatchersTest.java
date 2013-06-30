@@ -42,6 +42,19 @@ public class MatchersTest
     List<Matcher> matchers = Matchers.matchersFromPatterns(patterns, "somestring");
     assertEquals(0, matchers.size());
   }
+
+
+
+  @Test
+  public void testFindAllMatches()
+  {
+    String s = "One is 1, Two is 2, three is 3";
+    List<String> ss = Matchers.findAllMatches(s, Pattern.compile("\\d+"));
+    assertEquals(3, ss.size());
+    assertEquals("1", ss.get(0));
+    assertEquals("2", ss.get(1));
+    assertEquals("3", ss.get(2));
+  }
   
   
   

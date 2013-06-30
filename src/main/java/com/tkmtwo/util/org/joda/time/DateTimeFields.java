@@ -252,17 +252,3 @@ public enum DateTimeFields
   
 }
 
-/*
-   public static DateTime floorToMinutePeriod(DateTime value, int periodInMinutes) {
-        if (value == null) {
-            return null;
-        }
-        if (periodInMinutes <= 0 || periodInMinutes > 59) {
-            throw new IllegalArgumentException("period in minutes must be > 0 and <= 59");
-        }
-        int min = value.getMinuteOfHour();
-        min = (min / periodInMinutes) * periodInMinutes;
-        return new DateTime(value.getYear(), value.getMonthOfYear(), value.getDayOfMonth(), value.getHourOfDay(), min, 0, 0, value.getZone());
-    }
-
- */

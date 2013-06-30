@@ -3,15 +3,22 @@ package com.tkmtwo.util.org.joda.time;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 import org.springframework.util.Assert;
 
 import org.joda.time.DateTime;
+import org.joda.time.ReadableInstant;
 import org.joda.time.Duration;
+import org.joda.time.Period;
 import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
+import org.joda.time.format.ISOPeriodFormat;
 
 import com.tkmtwo.util.interpolate.Interpolator;
+import com.tkmtwo.util.java.util.regex.Matchers;
 
 /**
  * Utilities for Joda Time.
@@ -21,9 +28,11 @@ import com.tkmtwo.util.interpolate.Interpolator;
  */
 public class JodaTime
 {
-  public static final String PATTERN_BASIC_DATETIME_NOMILLIS = "\\d{8}T\\d{6}Z";
-
-  private static DateTimeFormatter defaultDateTimeFormatter = ISODateTimeFormat.basicDateTimeNoMillis();
+  public static final String  BASIC_DATETIME_NOMILLIS_SPEC    = "\\d{8}T\\d{6}Z";
+  public static final Pattern BASIC_DATETIME_NOMILLIS_PATTERN = Pattern.compile(BASIC_DATETIME_NOMILLIS_SPEC);
+  public static final DateTimeFormatter BASIC_DATETIME_FORMATTER = ISODateTimeFormat.basicDateTimeNoMillis();
+  
+  public static final DateTimeFormatter defaultDateTimeFormatter = ISODateTimeFormat.basicDateTimeNoMillis();
   
   
   public static DateTimeFormatter getDefaultFormatter()
@@ -32,9 +41,31 @@ public class JodaTime
   }
   
   
+  public static String print(Period p) {
+    return ISOPeriodFormat.standard().print(p);
+  }
+  public static Period parsePeriod(String s) {
+    return ISOPeriodFormat.standard().parsePeriod(s);
+  }
+    
+
+  public static String print(ReadableInstant ri)
+  {
+    return ISODateTimeFormat.basicDateTimeNoMillis().print(ri);
+  }
+  public static DateTime parseDateTime(String s)
+  {
+    return ISODateTimeFormat.basicDateTimeNoMillis().parseDateTime(s);
+  }
   
   
   
+  public static String format(DateTime dt) {
+    return format(dt, BASIC_DATETIME_FORMATTER);
+  }
+  public static String format(DateTime dt, DateTimeFormatter dtf) {
+    return dtf.print(dt);
+  }
   
   
   /**
@@ -202,6 +233,57 @@ public class JodaTime
   {
     return new DateTime(l);
   }
+  
+
+
+
+  public static DateTime getDateTime(String s)
+  {
+    return getDateTime(getDefaultFormatter(),
+                       BASIC_DATETIME_NOMILLIS_PATTERN,
+                       s);
+  }
+
+
+
+  /**
+   * Describe <code>getDateTime</code> method here.
+   *
+   * @param dtf a <code>DateTimeFormatter</code> value
+   * @param p a <code>Pattern</code> value
+   * @param s a <code>String</code> value
+   * @return a <code>DateTime</code> value
+   */
+  public static DateTime getDateTime(DateTimeFormatter dtf, Pattern p, String s)
+  {
+    List<DateTime> dateTimes = getDateTimes(dtf, p, s);
+    if (dateTimes.isEmpty()) {
+      return null;
+    }
+    return (dateTimes.get(dateTimes.size() - 1));
+  }
+
+
+
+
+
+  public static List<DateTime> getDateTimes(String s)
+  {
+    return getDateTimes(getDefaultFormatter(),
+                        BASIC_DATETIME_NOMILLIS_PATTERN,
+                        s);
+  }
+
+
+  public static List<DateTime> getDateTimes(DateTimeFormatter dtf, Pattern p, String s)
+  {
+    List<DateTime> dateTimes = new ArrayList<DateTime>();
+    for (String dtString : Matchers.findAllMatches(s, p)) {
+      dateTimes.add(dtf.parseDateTime(dtString));
+    }
+    return dateTimes;
+  }
+
   
   
   
