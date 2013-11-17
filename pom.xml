@@ -17,7 +17,7 @@
   
   <groupId>com.tkmtwo</groupId>
   <artifactId>tkmtwo-util</artifactId>
-  <version>3.3.0</version>
+  <version>3.3.1</version>
   <packaging>jar</packaging>
   
   <name>tkmtwo-util</name>
@@ -152,6 +152,20 @@
   </build>
   
   
+  
+  
+  
+  
+  <distributionManagement>
+    <repository>
+      <id>repo</id>
+      <url>https://github.com/tkmtwo/tkmtwo-mvn-repo/raw/master/release</url>
+    </repository>
+    <snapshotRepository>
+      <id>snapshot-repo</id>
+      <url>https://github.com/tkmtwo/tkmtwo-mvn-repo/raw/master/snapshot</url>
+    </snapshotRepository>
+  </distributionManagement>  
   
   
   
