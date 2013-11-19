@@ -17,7 +17,7 @@
   
   <groupId>com.tkmtwo</groupId>
   <artifactId>tkmtwo-util</artifactId>
-  <version>3.3.1</version>
+  <version>3.3.2</version>
   <packaging>jar</packaging>
   
   <name>tkmtwo-util</name>
